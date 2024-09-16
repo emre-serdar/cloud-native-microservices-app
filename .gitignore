@@ -1,0 +1,16 @@
+# Node.js
+node_modules/
+npm-debug.log
+
+# Java
+target/
+*.class
+
+# IDEs and editors
+.idea/
+*.iml
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
