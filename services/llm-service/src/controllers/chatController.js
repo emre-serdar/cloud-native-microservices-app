@@ -9,7 +9,7 @@ exports.generateResponse = async (req, res) => {
 
     try {
         const response = await sendToLLMApi(prompt);
-        res.status(200).json({ response });
+        res.status(200).json({ response: response || "No response from LLM." });
     } catch (error) {
         console.error('Error generating response:', error.message);
         res.status(500).json({ message: 'Error generating response from LLM API' });
