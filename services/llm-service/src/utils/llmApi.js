@@ -10,7 +10,14 @@ exports.sendToLLMApi = async (prompt) => {
     try {
         const response = await axios.post(
             endpoint,
-            { inputs: prompt },
+            {
+                inputs: prompt,
+                parameters: {
+                    max_new_tokens: 300, // Limit response length
+                    temperature: 0.7,  // Control randomness
+                    top_p: 0.9,        // Choose high-probability words
+                },
+            },
             {
                 headers: {
                     Authorization: `Bearer ${API_KEY}`,
@@ -23,3 +30,4 @@ exports.sendToLLMApi = async (prompt) => {
         throw new Error("Failed to communicate with LLM API");
     }
 };
+

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import '../styles/Auth.css'; // Importing shared CSS for Login and Signup
 import api from '../utils/api';
 
 const Login: React.FC = () => {
@@ -6,6 +8,7 @@ const Login: React.FC = () => {
         email: '',
         password: '',
     });
+    const navigate = useNavigate();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -16,21 +19,23 @@ const Login: React.FC = () => {
         try {
             const response = await api.post('/auth/login', formData);
             alert(`Logged in! Token: ${response.data.token}`);
+            navigate('/chat'); // Redirect to chat page
         } catch (error: any) {
             alert(error.response?.data?.message || 'Login failed');
         }
     };
 
     return (
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
+        <div className="auth-container">
+            <h1 className="auth-title">Login</h1>
+            <form className="auth-form" onSubmit={handleSubmit}>
                 <input
                     type="email"
                     name="email"
                     placeholder="Email"
                     value={formData.email}
                     onChange={handleChange}
+                    className="auth-input"
                 />
                 <input
                     type="password"
@@ -38,8 +43,11 @@ const Login: React.FC = () => {
                     placeholder="Password"
                     value={formData.password}
                     onChange={handleChange}
+                    className="auth-input"
                 />
-                <button type="submit">Login</button>
+                <button type="submit" className="auth-button">
+                    Login
+                </button>
             </form>
         </div>
     );
