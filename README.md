@@ -1,81 +1,87 @@
-# Cloud-Native Microservices Platform
+# Cloud-Native Microservices Platform for AI Language Models
 
-This repository contains a cloud-native web application developed with a **microservices architecture**, focusing on scalability, security, and flexibility. The application is designed as a platform that will host and integrate different AI models from various sources, enabling seamless interaction with AI technologies via APIs. The services are built using **Node.js**, **Java Spring Boot**, and integrated with cloud technologies like **AWS** and **Kubernetes** for scalable deployment.
+This repository hosts a cloud-native web application developed with a **microservices architecture**, focusing on providing seamless user authentication and interaction with various **Language Models (LLMs)**. The platform is designed to integrate multiple popular AI models like **Falcon**, **OpenAI GPT-4**, and **Google Gemini** (planned), allowing users to access these models through a unified interface with configurable request limits.
 
 ## Project Overview
 
-This platform is intended to serve as a hub for collecting and deploying different AI models, offering services to interact with them through APIs. These models can range from machine learning (ML) to natural language processing (NLP) and computer vision (CV) models. The platform is also built to accommodate AI models' integration through a microservices architecture.
+This platform provides:
+1. **User Authentication Service**: Secure and robust authentication with token-based session management.
+2. **Language Model Service**: Integration with external LLM APIs, enabling dynamic responses from selected models via a dropdown.
 
-Current core services implemented in this repository include:
-1. **Authentication Service** (Node.js + Express)
-2. **Order Management Service** (Java Spring Boot)
-3. **Payment Service** (Java Spring Boot)
-4. **Product Service** (Node.js + Express)
-
-These services are designed to be generic and flexible, making them applicable to different applications, whether for an e-commerce platform or an AI model marketplace.
+The application is containerized using **Docker**, ensuring portability and scalability. Future work includes **Kubernetes orchestration** to further enhance scalability and management for production-grade deployments.
 
 ---
 
 ## Technologies Used
 
-The following technologies are utilized in this project:
+The following tools and technologies were used:
 
-- **Node.js**: Used for building the backend microservices such as Authentication and Product services.
-- **Express**: A fast and lightweight Node.js framework for building APIs.
-- **MongoDB (MongoDB Atlas)**: A NoSQL database for storing user data and product details, integrated with the authentication service for secure storage.
-- **Bcrypt**: Used for password hashing in the authentication service.
-- **JWT (JSON Web Token)**: Utilized for secure user authentication and session management.
-- **Jest & Supertest**: For API testing, covering endpoints in the authentication service.
-- **Docker**: Containerization for microservices, enabling isolated development and deployment.
-- **Kubernetes**: Orchestration for scalable deployment and management of Docker containers.
-- **Java Spring Boot**: Used for order and payment services, providing a robust and scalable backend.
-- **AWS**: Deployment infrastructure, utilizing services such as EC2, S3, and RDS to host and manage services.
-- **React.js (Frontend planned)**: Will be used to build the frontend to interact with services, and potentially provide a user interface for the AI models platform.
-  
+- **Node.js**: Backend framework for the authentication and LLM services.
+- **Express.js**: API routing and middleware for backend services.
+- **MongoDB Atlas**: NoSQL cloud database for secure storage of user data.
+- **Bcrypt**: Password hashing for secure authentication.
+- **JWT (JSON Web Token)**: Token-based user authentication and session management.
+- **Axios**: HTTP client for seamless frontend-backend communication.
+- **React.js**: Frontend framework for an interactive user experience.
+- **Jest & Supertest**: Testing frameworks for API and unit testing.
+- **Docker**: Containerization of services for scalable deployments.
+- **CSS Styling**: Custom styling for responsive and user-friendly interfaces.
+
 ---
 
 ## Microservices Implemented
 
 ### 1. **Authentication Service**
 
-- **Tech Stack**: Node.js, Express, MongoDB, JWT, Bcrypt
-- **Functionality**: 
+- **Tech Stack**: Node.js, Express.js, MongoDB, JWT, Bcrypt.
+- **Features**:
   - User registration and login functionality.
-  - Password hashing using **bcrypt**.
+  - Password hashing using **Bcrypt**.
   - Token-based authentication using **JWT**.
-  - Protected routes that require valid JWT tokens for access.
-  - Integrated with MongoDB Atlas for secure storage of user credentials.
-- **API Routes**:
-  - `POST /api/auth/signup`: Register a new user.
-  - `POST /api/auth/login`: Login an existing user and return a JWT token.
-  - `GET /api/auth/protected`: Access a protected route with a valid token.
-  
+  - Protected routes accessible only with valid JWT tokens.
+  - MongoDB Atlas integration for secure storage of user credentials.
+- **API Endpoints**:
+  - `POST /api/auth/signup`: Registers a new user.
+  - `POST /api/auth/login`: Logs in an existing user and returns a JWT token.
+  - `GET /api/auth/protected`: Validates access to a protected route.
 - **Testing**:
-  - Implemented using **Jest** and **Supertest** for API testing.
-  - Tests for user registration, login, duplicate users, invalid credentials, and protected route access.
-  
-- **Current Branch**: Feature branch is `feature/authentication-service`. All commits and progress on this service are merged into the `develop` branch after testing.
+  - Unit and API testing using **Jest** and **Supertest**.
+  - Validated functionality for registration, login, duplicate user prevention, and protected route access.
+- **Dockerization**:
+  - Fully containerized with a Dockerfile and `docker-compose.yml`.
 
-### 2. **Order Management Service (Upcoming)**
+---
 
-- **Tech Stack**: Java Spring Boot, MongoDB, Docker
+### 2. **Language Model Service (LLM Service)**
+
+- **Tech Stack**: Node.js, Express.js, Hugging Face API.
+- **Features**:
+  - Integrates LLMs via APIs, starting with **Falcon**.
+  - Dynamic model selection via a dropdown menu on the frontend.
+  - Modular architecture for adding support for future models like **OpenAI GPT-4** and **Google Gemini**.
+- **Files**:
+  - `llmApi.js`: Handles API requests to LLMs.
+  - `chatController.js`: Manages incoming requests and API responses.
+  - `chatRoutes.js`: Defines routes for LLM-related endpoints.
+- **API Endpoints**:
+  - `POST /api/llm/generate`: Processes user prompts and fetches responses from the selected LLM API.
 - **Planned Features**:
-  - Order placement and tracking.
-  - Order history and status updates.
+  - User-specific request limits for LLM usage.
+  - Analytics for tracking model performance and usage.
 
-### 3. **Payment Service (Upcoming)**
+---
 
-- **Tech Stack**: Java Spring Boot, Payment Gateway API
-- **Planned Features**:
-  - Payment integration using third-party APIs (e.g., Stripe, PayPal).
-  - Secure transaction processing.
+## Frontend Application
 
-### 4. **Product Service**
-
-- **Tech Stack**: Node.js, Express, MongoDB
-- **Planned Features**:
-  - CRUD functionality for managing products.
-  - Integration with AI models for product recommendation.
+- **Home Page**:
+  - Engaging design with a dark theme, centered "Login" and "Signup" buttons.
+- **Login and Signup Pages**:
+  - Consistent styling with smooth transitions to the chat page.
+  - Fully functional forms integrated with the Authentication Service.
+- **Chat Page**:
+  - Dropdown menu for model selection (e.g., Falcon, OpenAI GPT-4, Google Gemini).
+  - Interactive chat interface for user prompts and model-generated responses.
+  - Dynamic message rendering with responsive design.
 
 ---
 
@@ -83,50 +89,70 @@ The following technologies are utilized in this project:
 
 ### Prerequisites
 
-- **Node.js**: Make sure you have Node.js installed.
-- **MongoDB**: Ensure you have MongoDB set up (MongoDB Atlas is used for cloud database storage).
-- **Docker** (Optional): For containerization and deployment.
+- **Node.js**: Installed locally for running services.
+- **MongoDB Atlas**: Cloud-based NoSQL database.
+- **Docker** (Optional): For containerized deployment.
 
-### Clone the repository
+### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/cloud-native-microservices-app.git
+git clone https://github.com/emre-serdar/cloud-native-microservices-app.git
 ```
 
-### Set up for Authentication Service
+### Set up the Authentication Service
 1. Navigate to the `authentication-service` directory.
 
-```bash
-cd services/authentication-service
-```
+   ```bash
+   cd services/authentication-service
 
-2. Install dependencies 
+2. Install dependencies:
 
-```bash
-npm install
-```
+   ```bash
+   npm install
 
 3. Create a .env file in the authentication-service directory:
 
-```bash
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-```
+   ```bash
+   MONGO_URI=your_mongodb_uri
+   JWT_SECRET=your_jwt_secret
 
-4. Run the application:
+5. Run the application:
 
-```bash
-npm run dev
-```
+   ```bash
+   npm run dev
 
-This will start the authentication service on http://localhost:5000.
+6. Run tests:
+   ```bash
+   npm run test
 
-### Running Tests
-You can run tests for the authentication service using Jest.
-```bash
-npm run test
-```
-This will test all routes and functionality, including user registration, login, and protected route access.
 
-As the project evolves, more features and services will be added, including product, order management, and payment functionalities.
+### Set up the LLM Service
 
+1. Navigate to the llm-service directory:
+   ```bash
+   cd services/llm-service
+2. Install dependencies::
+   ```bash
+   npm install
+3. Create a .env file in the llm-service directory::
+   ```bash
+   HUGGING_FACE_API_KEY=your_hugging_face_api_key
+4. Run the application::
+   ```bash
+   npm run dev
+
+### Future Work
+Containerization:
+Extend Docker support to the LLM service.
+Deploy services on Kubernetes for production readiness.
+Advanced Features:
+Implement user-specific request limits for LLM usage.
+Analytics for tracking model performance and usage patterns.
+Conclusion
+This project successfully demonstrates a scalable, modular microservices architecture for cloud-native applications. Key achievements include:
+
+Full implementation of user authentication with secure JWT-based sessions.
+Seamless integration with external LLM APIs.
+Dockerization of services for deployment.
+A responsive and user-friendly frontend interface.
+This platform provides a robust foundation for future development, including additional services, advanced features, and production-grade deployments using Kubernetes.
