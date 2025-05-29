@@ -129,4 +129,4 @@ npm run test
 This will test all routes and functionality, including user registration, login, and protected route access.
 
 As the project evolves, more features and services will be added, including product, order management, and payment functionalities.
-
+ 
